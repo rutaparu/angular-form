@@ -1,0 +1,96 @@
+<div class="form-page" [ngSwitch]="activeStep">
+  <app-general-info
+    *ngSwitchCase="formSteps.generalInfo"
+    [formGroup]="formGroup.controls.generalInfo"
+    (nextClicked)="onStepChangeClicked($event)"
+  ></app-general-info>
+
+  <ng-container
+    *ngSwitchCase="formSteps.submitApplication"
+    [ngTemplateOutlet]="submitApplicationStep"
+  ></ng-container>
+
+  <ng-container
+    *ngSwitchCase="formSteps.motivationalLetter"
+    [ngTemplateOutlet]="motivationalLetterStep"
+  ></ng-container>
+</div>
+
+<ng-template #submitApplicationStep>
+  <div class="form-page__submit-step">
+    <div class="form-page__actions">
+      <button
+        mat-stroked-button
+        color="cancel"
+        (click)="onStepChangeClicked(formSteps.generalInfo)"
+      >
+        Atgal
+      </button>
+      <button
+        mat-flat-button
+        type="button"
+        color="confirm"
+        (click)="onSubmitStepConfirmClicked()"
+      >
+        Pateikti aplikacija
+      </button>
+    </div>
+    <div
+      class="form-page__submit-step__message"
+      *ngIf="
+        showConfirmationMessage &&
+        formGroup.get('generalInfo').value.lookingForWork
+      "
+    >
+      Aplikacija pateikta!
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #motivationalLetterStep>
+  <div class="form-page__letter-step">
+    <mat-form-field>
+      <mat-label>Motyvacinis laiskas</mat-label>
+      <textarea
+        matInput
+        type="text"
+        matInput
+        rows="10"
+        cols="50"
+        [formControl]="formGroup.controls.motivationalLetter"
+        minlength="140"
+      ></textarea>
+      <mat-error
+        *ngIf="formGroup.controls.motivationalLetter.hasError('required')"
+        >Motyvacinis laukas yra privalomas</mat-error
+      >
+      <mat-error
+        *ngIf="formGroup.controls.motivationalLetter.hasError('minlength')"
+        >Motyvacinis laukas privalo buti ilgesnis nei 140 raidziu
+        tekstas</mat-error
+      >
+    </mat-form-field>
+    <div class="form-page__actions form-page__actions--padding">
+      <button
+        mat-stroked-button
+        color="cancel"
+        (click)="onStepChangeClicked(formSteps.submitApplication)"
+      >
+        Atgal
+      </button>
+      <button
+        mat-flat-button
+        [disabled]="formGroup.controls.motivationalLetter.invalid"
+        type="button"
+        color="confirm"
+        (click)="onFinalSubmission()"
+      >
+        Pateikti
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="contentToDisplay">
+    {{ contentToDisplay | json }}
+  </div>
+</ng-template>

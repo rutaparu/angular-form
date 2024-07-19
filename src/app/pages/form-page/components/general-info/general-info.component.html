@@ -1,0 +1,122 @@
+<form [formGroup]="formGroup" class="forms-general-info">
+  <mat-form-field>
+    <mat-label>Vardas</mat-label>
+    <input
+      type="text"
+      matInput
+      formControlName="name"
+      placeholder="Pvz. Jonas"
+    />
+    <mat-error *ngIf="formGroup.controls.name.hasError('required')"
+      >Vardas yra privalomas laukas</mat-error
+    >
+    <mat-error *ngIf="formGroup.controls.name.hasError('pattern')"
+      >Irasykite teisinga varda</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Pavarde</mat-label>
+    <input
+      type="text"
+      matInput
+      formControlName="lastName"
+      placeholder="Pvz. Jonaitis"
+    />
+    <mat-error *ngIf="formGroup.controls.lastName.hasError('required')"
+      >Pavarde yra privalomas laukas</mat-error
+    >
+    <mat-error *ngIf="formGroup.controls.lastName.hasError('pattern')"
+      >Irasykite teisinga pavarde</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>El. pastas</mat-label>
+    <input
+      email
+      matInput
+      formControlName="email"
+      placeholder="Pvz. Jonas@gmail.com"
+    />
+    <mat-error *ngIf="formGroup.controls.email.hasError('required')"
+      >El. pastas privalomas laukas</mat-error
+    >
+    <mat-error *ngIf="formGroup.controls.email.hasError('email')"
+      >Iveskite teisinga el. pasta</mat-error
+    >
+  </mat-form-field>
+
+  <mat-checkbox
+    class="forms-general-info__checkbox"
+    formControlName="lookingForWork"
+    >Ar ieskai darbo?</mat-checkbox
+  >
+
+  <mat-form-field>
+    <mat-label>Kokio lygio specialistas esi?</mat-label>
+    <mat-select formControlName="specialistLevel" placeholder="Pvz. Senior">
+      <div
+        *ngFor="let level of specialistLevelsDropdown; trackBy: trackByLevel"
+      >
+        <mat-option [value]="level">{{ level }}</mat-option>
+      </div>
+    </mat-select>
+    <mat-error *ngIf="formGroup.controls.specialistLevel.hasError('required')"
+      >Specialisto lygis yra privalomas laukas</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field
+    *ngIf="formGroup.controls.specialistLevel.value === specialistLevel.junior"
+  >
+    <mat-label>2+2</mat-label>
+    <input
+      type="number"
+      matInput
+      formControlName="sumField"
+      placeholder="Pvz. 9"
+    />
+    <mat-error *ngIf="formGroup.controls.sumField.hasError('required')"
+      >Sudeties atsakymas privalomas laukas</mat-error
+    >
+    <mat-error *ngIf="formGroup.controls.sumField.hasError('pattern')"
+      >Sudeties atsakymas yra neteisingas</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field
+    *ngIf="formGroup.controls.specialistLevel.value === specialistLevel.mid"
+  >
+    <mat-label>Apibudink save (be a raidziu)</mat-label>
+    <textarea
+      matInput
+      type="text"
+      matInput
+      rows="5"
+      formControlName="description"
+      placeholder="Pvz. As esu Jonas Jonaitis ir megstu laisvalaikiu..."
+    ></textarea>
+    <mat-error *ngIf="formGroup.controls.description.hasError('required')"
+      >Aprasymo laukas yra privalomas</mat-error
+    >
+    <mat-error *ngIf="formGroup.controls.description.hasError('pattern')"
+      >Aprasymo laukas yra neteisingas</mat-error
+    >
+  </mat-form-field>
+
+  <div class="forms-general-info__actions">
+    <button
+      *ngIf="
+        formGroup.controls.specialistLevel.value === specialistLevel.senior
+      "
+      mat-flat-button
+      type="button"
+      color="confirm"
+      [disabled]="formGroup.invalid"
+      (click)="onNextClicked()"
+    >
+      Kitas
+    </button>
+  </div>
+</form>

@@ -1,0 +1,37 @@
+@use "./scss/mixins.scss" as mixins;
+
+.form-page {
+  padding: 5% 33% 20%;
+
+  &__submit-step {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+
+    &__message {
+      margin-top: 40px;
+      padding: 20px;
+      border: 1px solid rgb(188, 255, 194);
+      background-color: rgb(238, 255, 237);
+      border-radius: 10px;
+      text-align: center;
+    }
+  }
+
+  &__letter-step {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+
+    &--padding {
+      padding: 15px 0 30px;
+    }
+  }
+
+  @include mixins.setConfirmButtonStyle();
+}

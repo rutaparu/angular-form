@@ -1,0 +1,18 @@
+@use "../../scss/mixins.scss" as mixins;
+
+.forms-general-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__checkbox {
+    padding-bottom: 20px;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  @include mixins.setConfirmButtonStyle();
+}

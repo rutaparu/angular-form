@@ -1,0 +1,15 @@
+@mixin setConfirmButtonStyle() {
+  .mat-confirm {
+    color: #fff;
+    background-color: rgb(117, 117, 255);
+
+    &:hover {
+      background-color: rgb(97, 97, 255);
+    }
+
+    &:disabled {
+      color: rgba(201, 201, 201, 0.904);
+      background-color: rgba(114, 114, 114, 0.904);
+    }
+  }
+}
